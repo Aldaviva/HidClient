@@ -106,7 +106,7 @@ public abstract class AbstractHidClient: IHidClient {
     /// <summary>
     /// Called when connected to a device after it was previously disconnected. When invoked, <see cref="IsConnected"/> will be <see langword="true"/>.
     /// </summary>
-    protected virtual void OnConnect() { }
+    protected internal virtual void OnConnect() { }
 
     private async Task HidReadLoop() {
         CancellationToken cancellationToken = _cancellationTokenSource!.Token;
@@ -134,7 +134,7 @@ public abstract class AbstractHidClient: IHidClient {
     /// Callback method that is invoked when HID bytes are read from the device.
     /// </summary>
     /// <param name="readBuffer">Bytes that were read from the device, matching the <c>HID Data</c> field in USBPcap.</param>
-    protected abstract void OnHidRead(byte[] readBuffer);
+    protected internal abstract void OnHidRead(byte[] readBuffer);
 
     private void ReattachToDevice(object? sender = null, EventArgs? e = null) {
         bool disconnected = false;
