@@ -13,7 +13,7 @@ public class FakeHidClient: AbstractHidClient {
     protected override int VendorId { get; } = 0x077d;
     protected override int ProductId { get; } = 0x0410;
 
-    protected internal override void OnHidRead(byte[] readBuffer) {
+    protected override void OnHidRead(byte[] readBuffer) {
         HidRead?.Invoke(this, readBuffer);
     }
 
