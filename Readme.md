@@ -5,6 +5,8 @@ HidClient
 
 *Common library class to receive updates from a USB HID and reconnect automatically when disconnected*
 
+![USB-A plug](https://raw.githubusercontent.com/Aldaviva/HidClient/master/.github/images/readme-header.png)
+
 <!-- MarkdownTOC autolink="true" bracket="round" autoanchor="false" levels="1,2,3" bullets="1.,-,-,-" -->
 
 1. [Introduction](#introduction)
