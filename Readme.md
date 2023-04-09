@@ -67,18 +67,23 @@ dotnet add package HidClient
     protected override int VendorId { get; } = 0x2474;
     protected override int ProductId { get; } = 0x0550;
     ```
+1. If you need to run initialization logic each time the device connects, for example resetting LED brightness that the device doesn't persist on its own, you may optionally override the `OnConnect()` method.
+    ```cs
+    protected override void OnConnect() {
+        DeviceStream?.SetFeature(new byte[]{ 0x00, 0x41, 0x01, 0x01, 0x00, 0x50, 0x00, 0x00, 0x00 });
+    }
+    ```
 1. Override the `OnHidRead(byte[])` method to handle the bytes read from the device.
     ```cs
     protected override void OnHidRead(byte[] readBuffer) {
-        Weight = Force.FromOunceForce(BitConverter.ToInt16(readBuffer, 4) / 10.0);
+        double ounces = BitConverter.ToInt16(readBuffer, 4) / 10.0;
+        Weight = Force.FromOunceForce(ounces);
     }
     ```
 1. To send commands to the device, call `DeviceStream.Write(byte[])` or `DeviceStream.WriteAsync(byte[], int, int)`.
     ```cs
     public void Tare() {
-        if (IsConnected) {
-            DeviceStream?.Write(new byte[]{ 0x04, 0x01 });
-        }
+        DeviceStream?.Write(new byte[]{ 0x04, 0x01 });
     }
     ```
 
