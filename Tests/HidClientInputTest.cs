@@ -107,14 +107,18 @@ public class HidClientInputTest {
     [Fact]
     public void SynchronizationContext() {
         A.CallTo(() => _stream.ReadAsync(A<byte[]>._, An<int>._, An<int>._, A<CancellationToken>._))
-            .ThrowsAsync(new IOException("fake disconnected")).Once().Then
-            .ReturnsLazily(FakeReadAsync(5, 6, 7));
+            .ThrowsAsync(new IOException("fake disconnected"));
 
         ManualResetEventSlim   eventArrived           = new();
         SynchronizationContext synchronizationContext = A.Fake<SynchronizationContext>();
         A.CallTo(() => synchronizationContext.Post(A<SendOrPostCallback>._, An<object?>._)).Invokes(() => eventArrived.Set());
 
-        FakeHidClient client = new(_deviceList) { EventSynchronizationContext = synchronizationContext };
+        using FakeHidClient client = new(_deviceList) { EventSynchronizationContext = synchronizationContext };
+
+        A.CallTo(() => _stream.ReadAsync(A<byte[]>._, An<int>._, An<int>._, A<CancellationToken>._))
+            .ThrowsAsync(new IOException("fake disconnected")).Once().Then
+            .ReturnsLazily(FakeReadAsync(5, 6, 7));
+
         eventArrived.Wait(TestTimeout);
 
         A.CallTo(() => synchronizationContext.Post(A<SendOrPostCallback>._, An<object?>._)).MustHaveHappenedOnceOrMore();

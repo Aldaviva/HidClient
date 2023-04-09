@@ -95,12 +95,15 @@ public abstract class AbstractHidClient: IHidClient {
             DeviceStream.ReadTimeout =  Timeout.Infinite;
             _cancellationTokenSource =  new CancellationTokenSource();
             IsConnected              =  true;
+            OnConnect();
 
             try {
                 Task.Factory.StartNew(HidReadLoop, _cancellationTokenSource.Token, TaskCreationOptions.LongRunning, TaskScheduler.Default);
             } catch (TaskCanceledException) { }
         }
     }
+
+    protected virtual void OnConnect() { }
 
     private async Task HidReadLoop() {
         CancellationToken cancellationToken = _cancellationTokenSource!.Token;
