@@ -23,14 +23,14 @@ public abstract class AbstractHidClient: IHidClient {
     /// <summary>
     /// <para>The USB Vendor ID or <c>VID</c> of the device you want to connect to.</para>
     /// <para>In Windows, this can be found in Device Manager as the hexadecimal <c>VID</c> value under Hardware Ids.</para>
-    /// <para>In Linux, this can be found in the output of <c>lsusb</c> as the hexadecimal <c>ID</c> colon-delimited value.</para>
+    /// <para>In Linux, this can be found in the output of <c>lsusb</c> in the hexadecimal <c>ID</c> colon-delimited value.</para>
     /// </summary>
     protected abstract int VendorId { get; }
 
     /// <summary>
     /// <para>The USB Product ID or <c>PID</c> of the device you want to connect to.</para>
     /// <para>In Windows, this can be found in Device Manager as the hexadecimal <c>PID</c> value under Hardware Ids.</para>
-    /// <para>In Linux, this can be found in the output of <c>lsusb</c> as the hexadecimal <c>ID</c> colon-delimited value.</para>
+    /// <para>In Linux, this can be found in the output of <c>lsusb</c> in the hexadecimal <c>ID</c> colon-delimited value.</para>
     /// </summary>
     protected abstract int ProductId { get; }
 
@@ -103,6 +103,9 @@ public abstract class AbstractHidClient: IHidClient {
         }
     }
 
+    /// <summary>
+    /// Called when connected to a device after it was previously disconnected. When invoked, <see cref="IsConnected"/> will be <see langword="true"/>.
+    /// </summary>
     protected virtual void OnConnect() { }
 
     private async Task HidReadLoop() {
