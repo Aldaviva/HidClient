@@ -1,4 +1,4 @@
-﻿<!--EXTERNAL_PROPERTIES: GITHUB_ACTIONS-->
+<!--EXTERNAL_PROPERTIES: GITHUB_ACTIONS-->
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
@@ -8,7 +8,7 @@
         <PackageId>HidClient</PackageId>
         <Product>HidClient</Product>
         <Description>Common library class to receive updates from a USB HID and reconnect automatically when disconnected</Description>
-        <Copyright>© 2023 Ben Hutchison</Copyright>
+        <Copyright>© 2024 Ben Hutchison</Copyright>
         <PackageProjectUrl>https://github.com/Aldaviva/HidClient</PackageProjectUrl>
         <RepositoryUrl>https://github.com/Aldaviva/HidClient.git</RepositoryUrl>
         <PublishRepositoryUrl>true</PublishRepositoryUrl>
@@ -41,7 +41,7 @@
 
     <ItemGroup>
         <PackageReference Include="HidSharp" Version="2.1.0" />
-        <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
+        <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" />
     </ItemGroup>
 
     <PropertyGroup Condition="'$(GITHUB_ACTIONS)' == 'true' or '$(Configuration)' == 'Release'">
