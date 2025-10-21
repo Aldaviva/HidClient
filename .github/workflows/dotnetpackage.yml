@@ -15,10 +15,10 @@ jobs:
 
     steps:
     - name: Clone
-      uses: actions/checkout@v3.3.0
+      uses: actions/checkout@v4
 
     - name: Initialize test reporting
-      uses: testspace-com/setup-testspace@v1.0.5
+      uses: testspace-com/setup-testspace@v1
       with:
         domain: ${{github.repository_owner}}
 
@@ -39,7 +39,7 @@ jobs:
       run: testspace Tests/TestResults/TestResults.xml
 
     - name: Upload coverage
-      uses: coverallsapp/github-action@master
+      uses: coverallsapp/github-action@648a8eb78e6d50909eff900e4ec85cab4524a45b
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         path-to-lcov: Tests/TestResults/coverage.info
@@ -51,7 +51,8 @@ jobs:
       run: dotnet pack ${{ env.ProjectName }} --no-build --configuration Release --verbosity normal
 
     - name: Upload package
-      uses: actions/upload-artifact@v3.1.2
+      uses: actions/upload-artifact@v4
       with:
         name: ${{ env.ProjectName }}.nupkg
         path: ${{ env.ProjectName }}/bin/Release/*.*nupkg
+        if-no-files-found: error
