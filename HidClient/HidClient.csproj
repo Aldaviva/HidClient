@@ -38,7 +38,7 @@
 
     <ItemGroup>
         <PackageReference Include="HidSharp" Version="2.6.4" />
-        <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" />
+        <PackageReference Include="Microsoft.SourceLink.GitHub" Version="10.0.102" PrivateAssets="All" />
     </ItemGroup>
 
     <PropertyGroup Condition="'$(GITHUB_ACTIONS)' == 'true' or '$(Configuration)' == 'Release'">
